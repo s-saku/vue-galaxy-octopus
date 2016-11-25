@@ -23,6 +23,10 @@
     "gulp-webpack": "^1.2.0",
     "react": "^0.13.0",
     "react-state-animation": "0.0.6",
+    "vue": "^2.0.3",
+    "vue-html-loader": "^1.2.3",
+    "vue-loader": "^9.7.0",
+    "vue-style-loader": "^1.0.0",
     "webpack": "^1.5.3",
     "yargs": "^3.5.4"
   }
