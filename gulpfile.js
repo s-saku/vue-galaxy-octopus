@@ -39,4 +39,4 @@ gulp.task('watch', function () {
   gulp.watch(['./build/*.js'], ['reload-js']);
 });
 
-gulp.task('default', ['clean', 'build', 'serve', 'watch']);
+gulp.task('default', ['serve']);

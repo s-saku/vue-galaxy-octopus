@@ -1,35 +1,36 @@
-module.exports = {
-  cache: true,
+'use strict'
+const path = require('path')
 
+module.exports = {
   watch: true,
 
   entry: {
     'app': ['./js/app.js']
   },
 
+
   output: {
+    path: './build',
     filename: '[name].js'
   },
 
-  devtool: 'inline-source-map',
-
   module: {
     loaders: [
-      { test: /\.js$|\.vue$/, exclude: /node_modules|build/, loader: 'vue'}
+      { test: /\.vue$/, loader: 'vue' },
+      { test: /\.js$/, exclude: [/node_modules/], loader: 'babel'}
     ]
   },
 
-  // vue-loader config:
-  // lint all JavaScript inside *.vue files with ESLint
-  // make sure to adjust your .eslintrc
-  vue: {
-    loaders: {
-      js: 'babel-loader'
+  resolve: {
+    root: [
+      path.resolve(__dirname, './node_modules')
+    ],
+    alias: {
+      // set jquery alias to avoid duplicated modules in upstay_common
+      // 'vue': path.resolve(__dirname, './node_modules/vue'),
+      'vue': path.resolve(__dirname, './node_modules/vue/dist/vue.js')
     }
   },
 
-  resolve: {
-    root: __dirname,
-    extensions: ['', '.js', '.vue']
-  }
+  devtool: '#source-map'
 };
