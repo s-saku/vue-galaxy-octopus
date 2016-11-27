@@ -27,12 +27,12 @@ export default {
   },
 
   created () {
-
+    // vue animation wrapper
+    this._animate = new VueAnimation(this)
   },
 
   mounted () {
-    // vue animation wrapper
-    this._animate = new VueAnimation(this)
+
   },
 
   computed: {
