@@ -1,7 +1,29 @@
-import React from 'react'
-import GallaxyOctopus from './components/GallaxyOctopus'
+import Vue from 'vue'
+import GallaxyOctopus from './components/GallaxyOctopus.vue'
 
-React.render(
-    <GallaxyOctopus />,
-    document.getElementById('app')
-)
+var app = new Vue({
+
+  el: '#app',
+
+  components: {
+    GallaxyOctopus
+  },
+
+  data: {
+    showMobileMenu: false,
+    showGalleryModal: false
+  },
+
+  created () {
+  },
+
+  mounted () {
+
+  },
+
+  methods: {
+
+  }
+})
+
+export default app

@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 
-.canvas {
+.screen {
   height: 450px;
   background: url('../img/background.png');
   position: relative;
