@@ -1,11 +1,12 @@
 <template>
   <div>
-    test!!
+    <screen :setting="setting"></screen>
+    <!-- <setting :setting="setting" v-on:change="onChangeSetting"></setting> -->
   </div>
 </template>
 
 <script>
-// import Canvas from './Canvas'
+import Screen from './Canvas.vue'
 // import Setting from './settings/Setting'
 
 export default {
@@ -13,21 +14,27 @@ export default {
   data () {
     return {
       setting: {
-          reverseGravity: true,
+          reverseGravity: false,
           pipeInterval: 1600,
           noHit: false
-      }
+      },
+      pipes: []
     }
   },
 
-  computed: {
-
-  },
-
   components: {
+    Screen
   },
 
   created () {
+
+  },
+
+  mounted () {
+
+  },
+
+  computed: {
   },
 
   methods: {

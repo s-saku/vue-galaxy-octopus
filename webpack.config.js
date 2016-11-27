@@ -26,9 +26,10 @@ module.exports = {
       path.resolve(__dirname, './node_modules')
     ],
     alias: {
-      // set jquery alias to avoid duplicated modules in upstay_common
       // 'vue': path.resolve(__dirname, './node_modules/vue'),
-      'vue': path.resolve(__dirname, './node_modules/vue/dist/vue.js')
+      'vue': path.resolve(__dirname, './node_modules/vue/dist/vue.js'),
+      'core-js': path.resolve(__dirname, './node_modules/core-js'),
+      'babel-runtime': path.resolve(__dirname, './node_modules/babel-runtime')
     }
   },
 
