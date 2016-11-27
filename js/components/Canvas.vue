@@ -2,7 +2,7 @@
   <div class="screen" ref="screen" @click="onClickCanvas">
     <counter :count="count"></counter>
     <octopus ref="octopus" :reverse="setting.reverseGravity" :canvasHeight="canvasHeight"></octopus>
-    <Pipe v-for="pipe in pipes" ref="pipe" :key="pipe.id" :pipeId="pipe.id" :topHeight="pipe.topHeight" :bottomHeight="pipe.bottomHeight" :pipeInterval="pipe.pipeInterval" :canvasWidth="pipe.canvasWidth" :gapHeight="pipe.gapHeight"/>
+    <Pipe v-for="pipe in pipes" ref="pipe" :key="pipe.id" :pipeId="pipe.id" :topHeight="pipe.topHeight" :bottomHeight="pipe.bottomHeight" :pipeInterval="pipe.pipeInterval" :canvasWidth="pipe.canvasWidth" :gapHeight="pipe.gapHeight"></Pipe>
     <div style="color: red; padding:10px">
       phase: {{phase}}
       <br>
@@ -62,6 +62,12 @@ export default {
   },
 
   created () {
+  },
+
+  mounted () {
+    var screen = this.$refs.screen
+    this.canvasWidth = screen.offsetWidth
+    this.canvasHeight = screen.offsetHeight
     // create main loop
     this._loop = new Loop(this.watchPos.bind(this))
     // space key handling
@@ -71,12 +77,6 @@ export default {
         this.onClickCanvas(e)
       }
     })
-  },
-
-  mounted () {
-    var screen = this.$refs.screen
-    this.canvasWidth = screen.offsetWidth
-    this.canvasHeight = screen.offsetHeight
   },
 
   computed: {
@@ -112,7 +112,7 @@ export default {
       // first pipe data
       var pipeId = this.count + 1
       var pipe = this.$refs.pipe ? this.$refs.pipe[0] : null
-      if (pipe) {
+      if (pipe && !pipe.done) {
         var gapPos = this.$refs.pipe[0].getGapPos()
         // detect left to right range
         if ((octopusPos.l + octopusPos.w) >= gapPos.l && octopusPos.l <= (gapPos.l + gapPos.w)) {
@@ -123,6 +123,7 @@ export default {
           }
         } else if (octopusPos.l >= (gapPos.l + gapPos.w)) {
           this.collisionState = "SUCCESS"
+          pipe.done = true
           return {state: "SUCCESS"}
         }
       }
@@ -131,7 +132,6 @@ export default {
     // fail to jump
     _fail() {
       this._loop.end()
-      console.log('clear!');
       clearInterval(this._pipeTimer)
       this.$refs.pipe.map((pipe) => {pipe.stop()})
       this.phase = 'ENDING'
@@ -148,9 +148,11 @@ export default {
           this.count = 0
           this.pipes = []
           this.$refs.octopus.bottom = this.$refs.octopus.initBottom
-          this._loop.start()
-          this._pipeTimer = setInterval(this._createPipe, this.setting.pipeInterval)
           this.$refs.octopus.jump()
+          this.$nextTick(() => {
+            this._loop.start()
+            this._pipeTimer = setInterval(this._createPipe, this.setting.pipeInterval)
+          })
           break
         case 'RUNNING':
           this.$refs.octopus.jump()
