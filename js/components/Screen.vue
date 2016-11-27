@@ -1,20 +1,8 @@
 <template>
-  <div class="screen" ref="screen" @click="onClickCanvas">
+  <div class="screen" ref="screen" @click="onClickScreen">
     <counter :count="count"></counter>
-    <octopus ref="octopus" :reverse="setting.reverseGravity" :canvasHeight="canvasHeight"></octopus>
-    <Pipe v-for="pipe in pipes" ref="pipe" :key="pipe.id" :pipeId="pipe.id" :topHeight="pipe.topHeight" :bottomHeight="pipe.bottomHeight" :pipeInterval="pipe.pipeInterval" :canvasWidth="pipe.canvasWidth" :gapHeight="pipe.gapHeight"></Pipe>
-    <div style="color: red; padding:10px">
-      phase: {{phase}}
-      <br>
-      pipes.length: {{pipes.length}}
-      <br>
-      collisionState: {{collisionState}}
-      <br>
-      count: {{count}}
-    </div>
-    <div style="color: white; padding:10px">
-      <div v-for="item in pipes">{{item.id}},{{item.topHeight}},{{item.bottomHeight}}<div>
-    </div>
+    <octopus ref="octopus" :reverse="setting.reverseGravity" :screenHeight="screenHeight"></octopus>
+    <Pipe v-for="pipe in pipes" ref="pipe" :key="pipe.id" :pipeId="pipe.id" :topHeight="pipe.topHeight" :bottomHeight="pipe.bottomHeight" :pipeInterval="pipe.pipeInterval" :screenWidth="pipe.screenWidth" :gapHeight="pipe.gapHeight"></Pipe>
   </div>
 </template>
 
@@ -38,9 +26,8 @@ export default {
   data () {
     return {
       phase: 'INTRO',
-      gapHeight: 200,
-      canvasWidth: 0,
-      canvasHeight: 0,
+      screenWidth: 0,
+      screenHeight: 0,
       pipes: [],
       count: 0,
       pipeSample: {
@@ -49,7 +36,7 @@ export default {
         bottomHeight: 200,
         gapHeight: 120,
         pipeInterval: this.setting.pipeInterval,
-        canvasWidth: 350
+        screenWidth: 350
       },
       collisionState: 'NONE'
     }
@@ -66,15 +53,15 @@ export default {
 
   mounted () {
     var screen = this.$refs.screen
-    this.canvasWidth = screen.offsetWidth
-    this.canvasHeight = screen.offsetHeight
+    this.screenWidth = screen.offsetWidth
+    this.screenHeight = screen.offsetHeight
     // create main loop
     this._loop = new Loop(this.watchPos.bind(this))
     // space key handling
     document.body.addEventListener('keydown', (e)=>{
       var key = (window.Event) ? e.which : e.keyCode
       if(key === 32) {
-        this.onClickCanvas(e)
+        this.onClickScreen(e)
       }
     })
   },
@@ -102,10 +89,10 @@ export default {
     // detect collision
     detectCollision() {
       var reverse = this.setting.reverseGravity,
-          canvasH = this.$refs.screen.offsetHeight,
+          screenH = this.$refs.screen.offsetHeight,
           octopusPos = this.$refs.octopus.getPos(),
           hitBuf = 10
-      if(reverse ? octopusPos.t < hitBuf : (octopusPos.t + octopusPos.h) > canvasH - hitBuf){
+      if(reverse ? octopusPos.t < hitBuf : (octopusPos.t + octopusPos.h) > screenH - hitBuf){
         this.collisionState = "HIT"
         return {state: "HIT"}
       }
@@ -139,7 +126,7 @@ export default {
     },
 
     // listen click and space key
-    onClickCanvas(e) {
+    onClickScreen(e) {
       e.stopPropagation()
       e.preventDefault()
       switch(this.phase) {
@@ -164,8 +151,8 @@ export default {
 
     // create and move pipe
     _createPipe() {
-      var topHeight = Math.floor(Math.random() * (this.canvasHeight - 250)) + 50,
-          bottomHeight = this.canvasHeight - (topHeight + this.gapHeight)
+      var topHeight = Math.floor(Math.random() * (this.screenHeight - 250)) + 50,
+          bottomHeight = this.screenHeight - (topHeight + this.setting.gapHeight)
       // show at most two pipes
       var lastPipe = this.pipes[this.pipes.length - 1],
           lastIndex = lastPipe && lastPipe.id || 0
@@ -176,9 +163,9 @@ export default {
         id: lastIndex + 1,
         topHeight: topHeight,
         bottomHeight: bottomHeight,
-        gapHeight: this.gapHeight,
+        gapHeight: this.setting.gapHeight,
         pipeInterval: this.setting.pipeInterval,
-        canvasWidth: this.canvasWidth
+        screenWidth: this.screenWidth
       })
     },
 

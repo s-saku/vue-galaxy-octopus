@@ -12,7 +12,7 @@ export default {
       type: Boolean,
       default: {}
     },
-    'canvasHeight': {
+    'screenHeight': {
       type: Number,
       default: 0
     }
@@ -27,11 +27,12 @@ export default {
   },
 
   created () {
-    // vue animation wrapper
-    this._animate = new VueAnimation(this)
+
   },
 
   mounted () {
+    // vue animation wrapper
+    this._animate = new VueAnimation(this)
   },
 
   computed: {
@@ -76,11 +77,11 @@ export default {
     fall() {
       return new Promise((resolve, reject) => {
         var pos = this.getPos(),
-            canvasH = this.canvasHeight,
+            screenH = this.screenHeight,
             reverse = this.reverse,
             operator = reverse ? -1 : 1,
-            distance = reverse ? pos.t : canvasH - pos.t - pos.h,
-            totalFallTime = 1000/*time for fall*/ * distance / canvasH
+            distance = reverse ? pos.t : screenH - pos.t - pos.h,
+            totalFallTime = 1000/*time for fall*/ * distance / screenH
         // rotate by css transform
         this.rotate(90 * operator)
         if(distance < 10){
@@ -88,7 +89,7 @@ export default {
         }else{
           this._animate
             .stop()
-            .linearIn('bottom', reverse ? canvasH - pos.h : 0, totalFallTime)
+            .linearIn('bottom', reverse ? screenH - pos.h : 0, totalFallTime)
             .then(resolve)
         }
       })

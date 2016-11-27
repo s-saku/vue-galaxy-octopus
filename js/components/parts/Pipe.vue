@@ -27,7 +27,7 @@ export default {
       type: Number,
       default: 0
     },
-    'canvasWidth': {
+    'screenWidth': {
       type: Number,
       default: 0
     },
@@ -46,12 +46,13 @@ export default {
   },
 
   created () {
-    // vue animation wrapper
-    this._animate = new VueAnimation(this)
+
   },
 
   mounted () {
-    this._animate.linearIn('right', this.canvasWidth, this.pipeInterval * 2)
+    // vue animation wrapper
+    this._animate = new VueAnimation(this)
+    this._animate.linearIn('right', this.screenWidth, this.pipeInterval * 2)
   },
 
   computed: {
@@ -82,52 +83,4 @@ export default {
     }
   }
 }
-
-// export default class Pipe extends React.Component {
-//     constructor(props) {
-//         super(props)
-//         // initialize state
-//         this.state = {
-//             right: -props.pipeWidth
-//         }
-//         // react state animation wrapper
-//         this._animate = new ReactStateAnimation(this)
-//     }
-
-//     componentDidMount() {
-//         this._animate.linear('right', this.props.canvasWidth, this.props.pipeInterval * 2)
-//     }
-
-//     componentWillUnmount() {
-//         this.stop()
-//     }
-
-//     getGapPos() {
-//         var pipe = React.findDOMNode(this.refs.pipe),
-//             box = pipe.getBoundingClientRect()
-//         return {
-//             w: pipe.offsetWidth,
-//             h: this.props.gapHeight,
-//             t: this.props.topHeight,
-//             l: box.left
-//         }
-//     }
-
-//     stop() {
-//         this._animate.stop()
-//     }
-
-//     render() {
-//         return (
-
-//         )
-//     }
-// }
-
-// Pipe.defaultProps = {
-//     pipeWidth: 60,
-//     pipeInterval: 0,
-//     canvasWidth: 0,
-//     gapHeight: 0
-// }
 </script>

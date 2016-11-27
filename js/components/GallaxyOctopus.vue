@@ -1,29 +1,32 @@
 <template>
   <div>
-    <screen :setting="setting"></screen>
-    <!-- <setting :setting="setting" v-on:change="onChangeSetting"></setting> -->
+    <screen ref="screen" :setting="setting"></screen>
+    <setting :setting="setting" v-on:onChangeSetting="onChangeSetting"></setting>
   </div>
 </template>
 
 <script>
-import Screen from './Canvas.vue'
-// import Setting from './settings/Setting'
+import Screen from './Screen.vue'
+import Setting from './settings/Setting.vue'
 
 export default {
 
   data () {
     return {
       setting: {
-          reverseGravity: false,
-          pipeInterval: 1600,
-          noHit: false
+        reverseGravity: false,
+        pipeInterval: 1200,
+        gapHeight: 150,
+        difficulity: 'normal',
+        noHit: false
       },
       pipes: []
     }
   },
 
   components: {
-    Screen
+    Screen,
+    Setting
   },
 
   created () {
@@ -38,12 +41,10 @@ export default {
   },
 
   methods: {
-    // onChangeSetting(setting) {
-    //     // set game parameter
-    //     this.setState({ setting: setting }, () => {
-    //         this.refs.canvas.reset()
-    //     })
-    // }
+    onChangeSetting() {
+      // set game parameter
+      this.$refs.screen.reset()
+    }
   }
 }
 </script>

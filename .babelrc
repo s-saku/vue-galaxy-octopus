@@ -3,5 +3,5 @@
     ["es2015", { "modules": false }],
     "stage-2"
   ],
-  "plugins": ["transform-es2015-destructuring", "transform-object-assign", "es6-promise"]
+  "plugins": ["transform-es2015-destructuring", "transform-object-assign"]
 }
