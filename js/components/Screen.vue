@@ -2,7 +2,7 @@
   <div class="screen" ref="screen" @click="onClickScreen">
     <counter :count="count"></counter>
     <octopus ref="octopus" :reverse="setting.reverseGravity" :screenHeight="screenHeight"></octopus>
-    <Pipe v-for="pipe in pipes" ref="pipe" :key="pipe.id" :pipeId="pipe.id" :topHeight="pipe.topHeight" :bottomHeight="pipe.bottomHeight" :pipeInterval="pipe.pipeInterval" :screenWidth="pipe.screenWidth" :gapHeight="pipe.gapHeight"></Pipe>
+    <pipe v-for="pipe in pipes" ref="pipe" :key="pipe.id" :pipe="pipe"></pipe>
   </div>
 </template>
 
@@ -29,16 +29,7 @@ export default {
       screenWidth: 0,
       screenHeight: 0,
       pipes: [],
-      count: 0,
-      pipeSample: {
-        id: 1,
-        topHeight: 100,
-        bottomHeight: 200,
-        gapHeight: 120,
-        pipeInterval: this.setting.pipeInterval,
-        screenWidth: 350
-      },
-      collisionState: 'NONE'
+      count: 0
     }
   },
 
@@ -64,10 +55,6 @@ export default {
         this.onClickScreen(e)
       }
     })
-  },
-
-  computed: {
-
   },
 
   methods: {

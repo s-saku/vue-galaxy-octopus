@@ -1,7 +1,7 @@
 <template>
   <div class="pipe" ref="pipe" :style="{'right': right + 'px'}" >
-    <div :style="{'height': topHeight + 'px'}" class="pipeTopHalf"></div>
-    <div :style="{'height': bottomHeight + 'px'}" class="pipeBottomHalf"></div>
+    <div :style="{'height': pipe.topHeight + 'px'}" class="pipeTopHalf"></div>
+    <div :style="{'height': pipe.bottomHeight + 'px'}" class="pipeBottomHalf"></div>
   </div>
 </template>
 
@@ -11,29 +11,9 @@ import VueAnimation from 'vue-state-animation'
 export default {
 
   props: {
-    'pipeId': {
-      type: Number,
-      default: 0
-    },
-    'topHeight': {
-      type: Number,
-      default: 0
-    },
-    'bottomHeight': {
-      type: Number,
-      default: 0
-    },
-    'pipeInterval': {
-      type: Number,
-      default: 0
-    },
-    'screenWidth': {
-      type: Number,
-      default: 0
-    },
-    'gapHeight': {
-      type: Number,
-      default: 0
+    'pipe': {
+      type: Object,
+      default: {}
     }
   },
 
@@ -51,14 +31,7 @@ export default {
   },
 
   mounted () {
-    this._animate.linearIn('right', this.screenWidth, this.pipeInterval * 2)
-  },
-
-  computed: {
-
-  },
-
-  components: {
+    this._animate.linearIn('right', this.pipe.screenWidth, this.pipe.pipeInterval * 2)
   },
 
   methods: {
@@ -67,12 +40,12 @@ export default {
     },
 
     getGapPos() {
-      var pipe = this.$refs.pipe,
-          box = pipe.getBoundingClientRect()
+      var pipeElement = this.$refs.pipe,
+          box = pipeElement.getBoundingClientRect()
       return {
-        w: pipe.offsetWidth,
-        h: this.gapHeight,
-        t: this.topHeight,
+        w: pipeElement.offsetWidth,
+        h: this.pipe.gapHeight,
+        t: this.pipe.topHeight,
         l: box.left
       }
     },

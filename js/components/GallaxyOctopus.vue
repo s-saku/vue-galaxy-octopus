@@ -19,25 +19,13 @@ export default {
         gapHeight: 150,
         difficulity: 'normal',
         noHit: false
-      },
-      pipes: []
+      }
     }
   },
 
   components: {
     Screen,
     Setting
-  },
-
-  created () {
-
-  },
-
-  mounted () {
-
-  },
-
-  computed: {
   },
 
   methods: {

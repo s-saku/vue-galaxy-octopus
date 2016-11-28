@@ -40,18 +40,6 @@ export default {
     }
   },
 
-  created () {
-  },
-
-  mounted () {
-  },
-
-  computed: {
-  },
-
-  components: {
-  },
-
   methods: {
     onChangeDifficulity() {
       switch(this.setting.difficulity) {

@@ -31,17 +31,6 @@ export default {
     this._animate = new VueAnimation(this)
   },
 
-  mounted () {
-
-  },
-
-  computed: {
-
-  },
-
-  components: {
-  },
-
   methods: {
     getPos() {
       var octopus = this.$refs.octopus,
@@ -106,26 +95,4 @@ export default {
   }
 }
 
-
-
-// export default class Octopus extends React.Component {
-//     constructor(props) {
-//         super(props)
-//         // initialize state
-//         this.state = {
-//             bottom: props.initBottom
-//         }
-//         // react state animation wrapper
-//         this._animate = new ReactStateAnimation(this)
-//     }
-
-
-
-
-
-//     stop() {
-//         this._animate.stop()
-//     }
-
-// }
 </script>

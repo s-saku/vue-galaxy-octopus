@@ -7,22 +7,6 @@ var app = new Vue({
 
   components: {
     GallaxyOctopus
-  },
-
-  data: {
-    showMobileMenu: false,
-    showGalleryModal: false
-  },
-
-  created () {
-  },
-
-  mounted () {
-
-  },
-
-  methods: {
-
   }
 })
 
