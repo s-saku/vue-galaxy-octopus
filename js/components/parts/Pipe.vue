@@ -12,8 +12,8 @@ export default {
 
   props: {
     'pipe': {
-      type: Object,
-      default: {}
+      type: Array,
+      default: function () { return [] }
     }
   },
 

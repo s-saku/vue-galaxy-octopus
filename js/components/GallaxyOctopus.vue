@@ -1,7 +1,7 @@
 <template>
   <div>
     <screen ref="screen" :setting="setting"></screen>
-    <setting :setting="setting" v-on:onChangeSetting="onChangeSetting"></setting>
+    <setting :setting="setting" v-on:on-change-setting="onChangeSetting"></setting>
   </div>
 </template>
 

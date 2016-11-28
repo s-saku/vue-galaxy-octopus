@@ -31,7 +31,7 @@ export default {
   props: {
     'setting': {
       type: Object,
-      default: {}
+      default: function () { return {} }
     }
   },
 
@@ -60,7 +60,7 @@ export default {
     },
 
     onChangeSetting() {
-      this.$emit('onChangeSetting')
+      this.$emit('on-change-setting')
     }
   }
  }

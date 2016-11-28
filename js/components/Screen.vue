@@ -19,7 +19,7 @@ export default {
   props: {
     'setting': {
       type: Object,
-      default: {}
+      default: function () { return {} }
     }
   },
 

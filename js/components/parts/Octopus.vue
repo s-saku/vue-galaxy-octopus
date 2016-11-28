@@ -10,7 +10,7 @@ export default {
   props: {
     'reverse': {
       type: Boolean,
-      default: {}
+      default: false
     },
     'screenHeight': {
       type: Number,
